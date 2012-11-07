@@ -1,0 +1,132 @@
+<project name="ssobjectsjava" default="build" basedir=".">
+  
+  <!-- Apache Ant build file for Ant Works Software java lib  -->
+  <!-- Written by: Lee Patterson (lee@ant-works.com)          -->
+  
+  <property name="name" value="ssobjects"/>
+  <property name="manifest.path" value="etc/manifest.mf"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="junit.path" value="${lib.dir}/junit-4.4.jar"/>
+  <property name="lib.path" value="${lib.dir}/antws.jar"/>
+  <property name="src.dir" value="src"/>
+  <property name="build.dir" value="bin"/>
+  <property name="dist.dir" value="dist"/>
+  <property name="doc.dir" value="doc"/>
+  <property name="javadoc.dir" value="${doc.dir}/javadoc"/>
+  <property name="class.path" value="${src.dir}:${lib.path}:${junit.path}"/>
+  <property name="test.class.name" value="ssobjects.SSObjectsTestSuite" />
+  <property name="build.compiler.emacs" value="true" />
+
+	<fileset id="lib.jars" dir="${lib.dir}">
+		<include name="**/*.jar"/>
+	</fileset>
+
+	<path id="lib.path">
+		<fileset refid="lib.jars"/>
+	</path>
+
+    <path id="test.path">
+      <pathelement location="${build.dir}"/>
+      <fileset refid="lib.jars"/>
+    </path>
+    
+              
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build.dir}"/>
+  </target>
+  
+  <target name="debug" depends="init">
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac deprecation="true" debug="on" srcdir="${src.dir}" destdir="${build.dir}" classpath="${class.path}">
+      <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
+
+  <target name="build" depends="init">
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac deprecation="true" debug="on" srcdir="${src.dir}" destdir="${build.dir}" classpath="${class.path}">
+    <!--  <classpath refid="${lib.path}" /> -->
+    </javac>
+  </target>
+  
+  <target name="dist" depends="build">
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist.dir}"/>
+    
+    <!-- Put everything in ${build} into the jar file -->
+    <jar 
+       jarfile="${dist.dir}/${name}.jar" 
+       basedir="${build.dir}"
+       />
+  </target>
+
+  <target name="testsuite" depends="build">
+    <junit fork="yes" haltonfailure="yes">
+      <test name="${test.class.name}" />
+      <formatter type="plain" usefile="false" />
+      <classpath refid="test.path" />
+    </junit>
+  </target>
+
+    <target name="test" depends="compile" description="JUnit test">
+        <junit fork="yes" haltonfailure="yes">
+          <batchtest fork="yes">
+            <fileset dir="${src.dir}">
+              <include name="**/*Test.java" />
+              <include name="**/Test*.java" />
+            </fileset>
+          </batchtest>
+          <formatter type="plain" usefile="false" />
+          <classpath refid="test.path" />
+        </junit>
+    </target>
+    
+	<target name="run" depends="compile">
+		<java classpath="${build.dir}" fork="true" classname="example.SimpleTelnetServer">
+		    <classpath refid="lib.path" />
+		</java>
+	</target>
+    
+    
+  	<target name="compile" depends="init" description="Compile code">
+		<mkdir dir="${build.dir}"/>
+		<javac deprecation="on" srcdir="${src.dir}" destdir="${build.dir}"
+			   source="1.6" target="1.6"
+			   includeAntRuntime="no"
+			   classpathref="lib.path" debug="${compile.debug}">
+		</javac>
+	</target>
+
+  <target name="javadoc">
+    <javadoc packagenames="*"
+             sourcepath="${src.dir}" 
+             destdir="${javadoc.dir}" 
+             author="true" 
+             version="true"
+             windowtitle="Simple Server Objects Java">
+      <doctitle><![CDATA[<h1>Simple Server Objects Java</h1>]]></doctitle>
+      <tag name="created" description="Created" enabled="true"/>
+    </javadoc>
+  </target>
+  
+  <target name="tidy">
+    <delete>
+      <fileset dir="${src.dir}" includes="**/*.class" />
+    </delete>
+  </target>
+  
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+    <delete dir="${javadoc.dir}"/>
+    <delete>
+      <fileset dir="${src.dir}" includes="**/*.class" />
+      <fileset dir="${src.dir}" includes="*~" />
+      <fileset dir="${src.dir}" includes="**/#*" />
+      <fileset dir="${src.dir}" includes="**/*.marks" />
+    </delete>
+  </target>
+</project>

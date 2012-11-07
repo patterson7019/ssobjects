@@ -1,0 +1,38 @@
+January 2008 
+-Changed BufferedSocket so you can pass in the buffer size.
+ Created enum for default buffer size.
+-Client connector can be passed the buffer size to pass onto the buffered
+ socket. 
+
+February 28, 2002
+Added TelnetServerSocket and TelnetServer classes. Removed the tree 
+in the documentation as it just takes too long to load.
+
+
+February 2, 2002
+Changed the install script to a more unix like directory structure.
+
+
+September 25, 2001
+Win32 fixes. Removed old file from project, and use correct file.
+
+Fixed warning for pthreads (added define to project settings).
+
+Fixed compile error in socketinstance.
+
+
+
+September 22, 2001
+
+Fixed potential overflow problem in
+ServerSocket::extractPacket method. If a size is read is
+larger then the maximum buffer size indicated when the
+ServerSocket is created, an exception is
+thrown. SimpleServer modified to handle this exception.
+
+Wrapped all objects in a namespace called "ssobjects" to
+avoid any naming conflicts.
+
+"EasyFile" object renamed to "File", now that I am using
+namespaces.
+

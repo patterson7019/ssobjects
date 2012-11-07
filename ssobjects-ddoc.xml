@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<book>
+  <bookinfo>
+    <title>ssobjects - Simple Server Objects</title>
+
+    <author>
+      <firstname>Lee</firstname>
+
+      <surname>Patterson</surname>
+
+      <affiliation>
+        <orgname>Ant Works Software</orgname>
+
+        <address><street></street>
+<city></city>, <state> </state> <postcode></postcode>
+<country></country>
+
+Phone: <phone></phone>
+Fax: <fax></fax>
+
+Web: <otheraddr><ulink url="http://">http://</ulink></otheraddr>
+Email: <email></email></address>
+      </affiliation>
+    </author>
+
+    <date>Last update 9/7/2007</date>
+
+    <abstract>
+      <para>Design document for ssobjects.</para>
+    </abstract>
+  </bookinfo>
+
+  <chapter>
+    <title>Your first chapter</title>
+
+    <section>
+      <title>Section in the chapter</title>
+
+      <para>Some text regarding the chapter. Ctrl-J to insert a sub section.
+      Ctrl-up 3 times to select the section, then Ctrl-j to insert a new
+      section. Ctrl-up 4 times to select the chapter, then Ctrl-j to insert a
+      new chapter.</para>
+
+      <para>You can insert paragraphs just by pressing enter at the end of
+      your text block. Want to <emphasis role="bold">bold</emphasis>
+      something? Type it, select it, then use the <emphasis
+      role="bold">emphasis[bold]</emphasis> toolbar button. Italic is the
+      same, but just choose <emphasis>emphasis</emphasis> instead.</para>
+
+      <para></para>
+    </section>
+
+  </chapter>
+  
+  <chapeter>
+    <title>Multithreading</title>
+
+    <section>
+      <title>Thread Pools</title>
+
+      <para>You define the number of threads that the server will be aloud
+      to start, and the server will start that number of theads when it
+      starts up. When a packet comes in, a thread is requested from the
+      pool. If there is no thread available, a wait period will elapse then
+      an error sent back if there is no thread that can service the request.
+      </para>
+      
+    </section>
+  </chapter>
+</book>
